@@ -1,14 +1,15 @@
-let leadItem = document.getElementById("save-btn");
-let inputEl = document.getElementById("input-el");
+const leadItem = document.getElementById("save-btn");
+const inputEl = document.getElementById("input-el");
 let leads = [];
-let ulEl = document.getElementById("ul-el");
-let delBtnEl = document.getElementById("delete-btn");
+const ulEl = document.getElementById("ul-el");
+const delBtnEl = document.getElementById("delete-btn");
+const tabBtn = document.getElementById("save-tab");
 //using the local database
-let leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
 console.log(leadsFromLocalStorage)
 if(leadsFromLocalStorage){
     leads = leadsFromLocalStorage;
-    renderLeads();
+    render(leads);
 }
 
 leadItem.addEventListener("click", function saveLeads(){
@@ -17,10 +18,10 @@ leadItem.addEventListener("click", function saveLeads(){
     // console.log(leads);
     inputEl.value = ""
     localStorage.setItem("myLeads", JSON.stringify(leads));
-    renderLeads();
+    render(leads);
 })
 
-function renderLeads(){
+function render(leads){
     let listItems = "";
     for(let i=0; i<leads.length; i++){
         listItems += `<li> 
@@ -34,5 +35,16 @@ function renderLeads(){
 delBtnEl.addEventListener("dblclick", function(){
     localStorage.clear();
     leads =[];
-    ulEl.innerHTML = "";
+    render(leads);
+})
+
+//working with chrome.tabs API
+
+tabBtn.addEventListener("click", function(){
+    chrome.tabs.query({active: true , currentWindow : true}, function(tabs){
+        leads.push(tabs[0].url);
+        localStorage.setItem("myLeads", JSON.stringify(leads));
+        render(leads);
+    })
+
 })
