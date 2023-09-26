@@ -17,7 +17,7 @@ button{
     color: white;
     font-weight: bold;
     padding: 10px 20px;
-    border: none;
+    border: 1px solid #5f9341;
 }
 ul{
     list-style: none;
@@ -31,3 +31,7 @@ a{
     color: #5f9341;    
 }
 
+#delete-btn{
+    background-color: white;
+    color: #5f9341;
+}
