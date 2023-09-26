@@ -6,7 +6,7 @@ let delBtnEl = document.getElementById("delete-btn");
 //using the local database
 let leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
 console.log(leadsFromLocalStorage)
-if(localStorage){
+if(leadsFromLocalStorage){
     leads = leadsFromLocalStorage;
     renderLeads();
 }
